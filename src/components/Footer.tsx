@@ -3,25 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useNavigate } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Heart, MessageCircle } from 'lucide-react';
 import { contactInfo } from '../data';
 
 interface FooterProps {
-  onNavigate: (sectionId: string) => void;
   onOpenAdmin: () => void;
 }
 
-export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
+export default function Footer({ onOpenAdmin }: FooterProps) {
+  const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { id: 'inicio', label: 'Início' },
-    { id: 'sobre', label: 'Sobre Nós' },
-    { id: 'cardapio', label: 'Cardápio' },
-    { id: 'galeria', label: 'Galeria' },
-    { id: 'avaliacoes', label: 'Avaliações' },
-    { id: 'reservas', label: 'Reservas' },
-    { id: 'localizacao', label: 'Localização' },
+    { path: '/', label: 'Início' },
+    { path: '/sobre', label: 'Sobre Nós' },
+    { path: '/cardapio', label: 'Cardápio' },
+    { path: '/galeria', label: 'Galeria' },
+    { path: '/avaliacoes', label: 'Avaliações' },
+    { path: '/reservas', label: 'Reservas' },
+    { path: '/localizacao', label: 'Localização' },
   ];
 
   return (
@@ -33,7 +34,7 @@ export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
           
           {/* Brand Presentation Column */}
           <div className="md:col-span-4 flex flex-col space-y-4">
-            <div onClick={() => onNavigate('inicio')} className="cursor-pointer">
+            <div onClick={() => navigate('/')} className="cursor-pointer">
               <span className="font-serif text-3xl font-bold text-white tracking-tight">Tradição</span>
               <p className="text-[10px] uppercase font-sans tracking-[0.25em] font-bold text-[#E8590C] -mt-1">
                 Churrascaria
@@ -84,9 +85,9 @@ export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
             <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-[#E8590C]">Navegação</h4>
             <ul className="space-y-2.5 text-xs font-sans font-light text-gray-400">
               {quickLinks.slice(0, 4).map((link) => (
-                <li key={`footer-nav-col1-${link.id}`}>
+                <li key={`footer-nav-col1-${link.path}`}>
                   <button
-                    onClick={() => onNavigate(link.id)}
+                    onClick={() => navigate(link.path)}
                     className="hover:text-churrasco-gold transition-colors"
                   >
                     {link.label}
@@ -100,9 +101,9 @@ export default function Footer({ onNavigate, onOpenAdmin }: FooterProps) {
             <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-[#E8590C] opacity-0 md:opacity-100 select-none">Navegação 2</h4>
             <ul className="space-y-2.5 text-xs font-sans font-light text-gray-400">
               {quickLinks.slice(4).map((link) => (
-                <li key={`footer-nav-col2-${link.id}`}>
+                <li key={`footer-nav-col2-${link.path}`}>
                   <button
-                    onClick={() => onNavigate(link.id)}
+                    onClick={() => navigate(link.path)}
                     className="hover:text-churrasco-gold transition-colors"
                   >
                     {link.label}

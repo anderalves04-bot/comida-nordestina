@@ -4,14 +4,12 @@
  */
 
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { Phone, Utensils, Star, MapPin } from 'lucide-react';
 import { contactInfo } from '../data';
 
-interface HeroProps {
-  onNavigate: (sectionId: string) => void;
-}
-
-export default function Hero({ onNavigate }: HeroProps) {
+export default function Hero() {
+  const navigate = useNavigate();
   const whatsappUrl = `https://wa.me/${contactInfo.whatsapp}?text=Ol%C3%A1%21+Gostaria+de+saber+mais+sobre+o+rod%C3%ADzio+e+o+card%C3%A1pio.`;
 
   return (
@@ -84,7 +82,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
         >
           <button
-            onClick={() => onNavigate('reservas')}
+            onClick={() => navigate('/reservas')}
             className="w-full sm:w-auto flex items-center justify-center space-x-3 bg-churrasco-red hover:bg-[#E8590C] text-white font-sans font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-none transition-all duration-300 group"
           >
             <Phone className="w-4 h-4 text-white" />
@@ -92,7 +90,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           </button>
 
           <button
-            onClick={() => onNavigate('cardapio')}
+            onClick={() => navigate('/cardapio')}
             className="w-full sm:w-auto flex items-center justify-center space-x-3 bg-transparent hover:bg-white/10 text-white font-sans font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-none transition-all duration-300 border border-white/50 hover:border-white"
           >
             <Utensils className="w-4 h-4 text-churrasco-gold" />

@@ -4,17 +4,18 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Clock, Calendar, Lock } from 'lucide-react';
 import { contactInfo } from '../data';
 
 interface NavbarProps {
-  onNavigate: (sectionId: string) => void;
-  activeSection: string;
   onOpenAdmin: () => void;
 }
 
-export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: NavbarProps) {
+export default function Navbar({ onOpenAdmin }: NavbarProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpenNow, setIsOpenNow] = useState(false);
@@ -62,18 +63,20 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
   }, []);
 
   const navLinks = [
-    { id: 'inicio', label: 'Início' },
-    { id: 'sobre', label: 'Sobre Nós' },
-    { id: 'cardapio', label: 'Cardápio' },
-    { id: 'galeria', label: 'Galeria' },
-    { id: 'avaliacoes', label: 'Avaliações' },
-    { id: 'reservas', label: 'Reservas' },
-    { id: 'localizacao', label: 'Localização' },
+    { path: '/', label: 'Início' },
+    { path: '/sobre', label: 'Sobre Nós' },
+    { path: '/cardapio', label: 'Cardápio' },
+    { path: '/galeria', label: 'Galeria' },
+    { path: '/avaliacoes', label: 'Avaliações' },
+    { path: '/reservas', label: 'Reservas' },
+    { path: '/localizacao', label: 'Localização' },
   ];
 
-  const handleLinkClick = (id: string) => {
+  const isActive = (path: string) => location.pathname === path;
+
+  const handleLinkClick = (path: string) => {
     setIsOpen(false);
-    onNavigate(id);
+    navigate(path);
   };
 
   return (
@@ -89,7 +92,7 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div
-            onClick={() => handleLinkClick('inicio')}
+            onClick={() => handleLinkClick('/')}
             className="flex flex-col cursor-pointer select-none group"
           >
             <span
@@ -112,10 +115,10 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
           <nav className="hidden lg:flex items-center space-x-2">
             {navLinks.map((link) => (
               <button
-                key={`desktop-nav-${link.id}`}
-                onClick={() => handleLinkClick(link.id)}
+                key={`desktop-nav-${link.path}`}
+                onClick={() => handleLinkClick(link.path)}
                 className={`px-3 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-200 relative ${
-                  activeSection === link.id
+                  isActive(link.path)
                     ? isScrolled
                       ? 'text-[#E8590C] font-bold'
                       : 'text-churrasco-gold font-bold'
@@ -125,7 +128,7 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
                 }`}
               >
                 {link.label}
-                {activeSection === link.id && (
+                {isActive(link.path) && (
                   <motion.div
                     layoutId="activeIndicator"
                     className={`absolute bottom-0 left-3 right-3 h-[2px] ${
@@ -163,7 +166,7 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
 
             {/* Quick Reservation Button */}
             <button
-              onClick={() => handleLinkClick('reservas')}
+              onClick={() => handleLinkClick('/reservas')}
               className={`flex items-center space-x-2 text-xs uppercase tracking-widest font-sans font-bold px-5 py-2.5 rounded-none transition-all duration-300 shadow-none border ${
                 isScrolled
                   ? 'bg-churrasco-red border-churrasco-red text-white hover:bg-[#E8590C] hover:border-[#E8590C]'
@@ -244,10 +247,10 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
             <div className="px-4 pt-2 pb-6 space-y-1 sm:px-6">
               {navLinks.map((link) => (
                 <button
-                  key={`mobile-nav-${link.id}`}
-                  onClick={() => handleLinkClick(link.id)}
+                  key={`mobile-nav-${link.path}`}
+                  onClick={() => handleLinkClick(link.path)}
                   className={`block w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                    activeSection === link.id
+                    isActive(link.path)
                       ? 'bg-churrasco-ember/10 text-churrasco-ember font-semibold'
                       : 'text-gray-700 hover:bg-black/5 hover:text-churrasco-ember'
                   }`}
@@ -258,7 +261,7 @@ export default function Navbar({ onNavigate, activeSection, onOpenAdmin }: Navba
 
               <div className="pt-4 border-t border-gray-200/50 mt-4 flex flex-col gap-3">
                 <button
-                  onClick={() => handleLinkClick('reservas')}
+                  onClick={() => handleLinkClick('/reservas')}
                   className="w-full flex items-center justify-center space-x-2 bg-churrasco-ember hover:bg-churrasco-brown text-white font-display font-bold py-3 rounded-lg shadow transition-colors"
                 >
                   <Calendar className="w-4 h-4" />
