@@ -1,0 +1,6 @@
+{
+  "name": "Tradição Churrascaria",
+  "description": "Churrascaria contemporânea em São Paulo com rodízio de carnes nobres, buffet de saladas, cardápio tradicional, ambiente acolhedor e facilidade de reservas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
