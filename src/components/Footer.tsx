@@ -121,8 +121,16 @@ export default function Footer({ onOpenAdmin }: FooterProps) {
               <div className="flex gap-2.5 text-gray-400">
                 <Clock className="w-3.5 h-3.5 text-[#C9A227] flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white uppercase tracking-wider">Terça a Sábado</p>
-                  <p className="text-xs text-gray-400 font-light mt-0.5">12h00 às 23h00</p>
+                  <p className="font-semibold text-white uppercase tracking-wider">Segunda a Sexta</p>
+                  <p className="text-xs text-gray-400 font-light mt-0.5">11h00 às 16h00 · 18h00 às 23h00</p>
+                </div>
+              </div>
+
+              <div className="flex gap-2.5 text-gray-400">
+                <Clock className="w-3.5 h-3.5 text-[#C9A227] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-white uppercase tracking-wider">Sábado</p>
+                  <p className="text-xs text-gray-400 font-light mt-0.5">11h00 às 23h00</p>
                 </div>
               </div>
 
@@ -130,7 +138,7 @@ export default function Footer({ onOpenAdmin }: FooterProps) {
                 <Clock className="w-3.5 h-3.5 text-[#C9A227] flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-white uppercase tracking-wider">Domingo</p>
-                  <p className="text-xs text-gray-400 font-light mt-0.5">12h00 às 17h00 · Segunda-feira: fechado</p>
+                  <p className="text-xs text-gray-400 font-light mt-0.5">11h00 às 19h00</p>
                 </div>
               </div>
 

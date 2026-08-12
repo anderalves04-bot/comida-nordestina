@@ -58,7 +58,7 @@ export interface ContactInfo {
   };
   openingHours: {
     weekday: string;
-    weekend: string;
-    holiday?: string;
+    saturday: string;
+    sunday: string;
   };
 }

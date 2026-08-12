@@ -29,24 +29,25 @@ export default function Navbar({ onOpenAdmin }: NavbarProps) {
       const minutes = now.getMinutes();
       const currentTimeInMins = hours * 60 + minutes;
 
-      const openTimeInMins = 12 * 60; // 12:00
+      const openTimeInMins = 11 * 60; // 11:00
 
-      if (day === 1) {
-        // Segunda-feira fechado
-        setIsOpenNow(false);
-        return;
-      }
-
-      let closeTimeInMins = 23 * 60; // 23:00 (Ter-Sáb)
+      let closeTimeInMins = 23 * 60; // 23:00 (Sábado)
       if (day === 0) {
-        closeTimeInMins = 17 * 60; // 17:00 (Domingo)
+        closeTimeInMins = 19 * 60; // 19:00 (Domingo)
       }
 
-      if (currentTimeInMins >= openTimeInMins && currentTimeInMins < closeTimeInMins) {
-        setIsOpenNow(true);
-      } else {
-        setIsOpenNow(false);
+      let open = currentTimeInMins >= openTimeInMins && currentTimeInMins < closeTimeInMins;
+
+      // Segunda a Sexta: pausa entre o almoço e o jantar
+      if (open && day >= 1 && day <= 5) {
+        const lunchCloseInMins = 16 * 60; // 16:00
+        const dinnerOpenInMins = 18 * 60; // 18:00
+        if (currentTimeInMins >= lunchCloseInMins && currentTimeInMins < dinnerOpenInMins) {
+          open = false;
+        }
       }
+
+      setIsOpenNow(open);
     };
 
     checkOpenStatus();

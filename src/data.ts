@@ -19,9 +19,9 @@ export const contactInfo: ContactInfo = {
     zipCode: '05422-000'
   },
   openingHours: {
-    weekday: 'Terça a Sábado: 12h às 23h',
-    weekend: 'Domingo: 12h às 17h',
-    holiday: 'Segunda-feira: fechado'
+    weekday: 'Segunda a Sexta: 11h às 16h e 18h às 23h',
+    saturday: 'Sábado: 11h às 23h',
+    sunday: 'Domingo: 11h às 19h'
   }
 };
 
