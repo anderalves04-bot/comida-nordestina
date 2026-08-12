@@ -103,13 +103,13 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
   // Session storage and Supabase Auth check on mount
   useEffect(() => {
     const checkSession = async () => {
-      const localActive = sessionStorage.getItem('opaio_admin_session') === 'active';
+      const localActive = sessionStorage.getItem('tc_admin_session') === 'active';
       if (isSupabaseConfigured && supabase) {
         try {
           const { data: { session } } = await supabase.auth.getSession();
           if (session?.user) {
             setIsAuthenticated(true);
-            sessionStorage.setItem('opaio_admin_session', 'active');
+            sessionStorage.setItem('tc_admin_session', 'active');
             return;
           }
         } catch (e) {
@@ -144,7 +144,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
       setReviews(reviewsData);
 
       // 5. Load/seed mock sales from localstorage
-      const savedSales = localStorage.getItem('opaio_sales');
+      const savedSales = localStorage.getItem('tc_sales');
       if (savedSales) {
         setSales(JSON.parse(savedSales));
       } else {
@@ -180,7 +180,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
             paymentMethod: 'Dinheiro'
           }
         ];
-        localStorage.setItem('opaio_sales', JSON.stringify(initialSales));
+        localStorage.setItem('tc_sales', JSON.stringify(initialSales));
         setSales(initialSales);
       }
     } catch (err: any) {
@@ -235,7 +235,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
     // 1. Immediate password authentication with the master admin password
     if (adminPassword === demoPassword) {
       setIsAuthenticated(true);
-      sessionStorage.setItem('opaio_admin_session', 'active');
+      sessionStorage.setItem('tc_admin_session', 'active');
       showFeedback('Conectado com sucesso com a senha administrativa!');
       setLoading(false);
       return;
@@ -260,7 +260,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
               throw new Error(signUpError.message);
             } else if (signUpData?.user && signUpData?.session) {
               setIsAuthenticated(true);
-              sessionStorage.setItem('opaio_admin_session', 'active');
+              sessionStorage.setItem('tc_admin_session', 'active');
               showFeedback('Nova conta administrativa criada no Supabase e conectada!');
             } else {
               setLoginError('Senha incorreta.');
@@ -270,7 +270,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
           }
         } else {
           setIsAuthenticated(true);
-          sessionStorage.setItem('opaio_admin_session', 'active');
+          sessionStorage.setItem('tc_admin_session', 'active');
           showFeedback('Login efetuado via Supabase!');
         }
       } catch (err: any) {
@@ -292,7 +292,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
     if (isSupabaseConfigured && supabase) {
       await supabase.auth.signOut();
     }
-    sessionStorage.removeItem('opaio_admin_session');
+    sessionStorage.removeItem('tc_admin_session');
     setIsAuthenticated(false);
     onClose();
   };
@@ -316,7 +316,7 @@ export default function AdminPanel({ dishes, onUpdateDishes, onClose }: AdminPan
 
     const updated = [newSale, ...sales];
     setSales(updated);
-    localStorage.setItem('opaio_sales', JSON.stringify(updated));
+    localStorage.setItem('tc_sales', JSON.stringify(updated));
     setSelectedDishId('');
     setSaleQty(1);
     showFeedback('Lançamento registrado com sucesso!');

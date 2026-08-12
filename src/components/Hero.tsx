@@ -25,7 +25,7 @@ export default function Hero({ onNavigate }: HeroProps) {
           initial={{ scale: 1.15, opacity: 0 }}
           animate={{ scale: 1.02, opacity: 0.65 }}
           transition={{ duration: 12, ease: 'easeOut' }}
-          src="/src/assets/images/opaio_hero_banner_1782400708182.jpg"
+          src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600"
           alt="Tradição Churrascaria"
           className="w-full h-full object-cover object-center filter brightness-50 contrast-110"
           referrerPolicy="no-referrer"

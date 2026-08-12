@@ -50,7 +50,7 @@ export default function About() {
             {/* Main Image */}
             <div className="relative rounded-none overflow-hidden border border-black/10 bg-white p-2 shadow-none">
               <img
-                src="/src/assets/images/ambient_turf_garden_1782402161783.jpg"
+                src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&q=80&w=800"
                 alt="Ambiente Tradição Churrascaria"
                 loading="lazy"
                 className="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700"

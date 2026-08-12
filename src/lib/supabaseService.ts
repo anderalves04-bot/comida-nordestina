@@ -48,7 +48,7 @@ export const getCategories = async (): Promise<Category[]> => {
         .order('nome');
       if (error) {
         console.warn('Categories query error, falling back to local data:', error.message);
-        return getLocalData<Category[]>('opaio_categories', defaultCategories);
+        return getLocalData<Category[]>('tc_categories', defaultCategories);
       }
       const list = data || [];
       const seen = new Set();
@@ -59,10 +59,10 @@ export const getCategories = async (): Promise<Category[]> => {
       });
     } catch (e: any) {
       console.warn('Failed to fetch categories from Supabase, falling back to local data:', e?.message || e);
-      return getLocalData<Category[]>('opaio_categories', defaultCategories);
+      return getLocalData<Category[]>('tc_categories', defaultCategories);
     }
   } else {
-    return getLocalData<Category[]>('opaio_categories', defaultCategories);
+    return getLocalData<Category[]>('tc_categories', defaultCategories);
   }
 };
 
@@ -76,10 +76,10 @@ export const createCategory = async (category: Omit<Category, 'criado_em'>): Pro
     if (error) throw error;
     return data;
   } else {
-    const categories = getLocalData<Category[]>('opaio_categories', defaultCategories);
+    const categories = getLocalData<Category[]>('tc_categories', defaultCategories);
     const newCategory = { ...category };
     const updated = [...categories, newCategory];
-    saveLocalData('opaio_categories', updated);
+    saveLocalData('tc_categories', updated);
     return newCategory;
   }
 };
@@ -95,9 +95,9 @@ export const updateCategory = async (category: Category): Promise<Category> => {
     if (error) throw error;
     return data;
   } else {
-    const categories = getLocalData<Category[]>('opaio_categories', defaultCategories);
+    const categories = getLocalData<Category[]>('tc_categories', defaultCategories);
     const updated = categories.map(c => c.id === category.id ? category : c);
-    saveLocalData('opaio_categories', updated);
+    saveLocalData('tc_categories', updated);
     return category;
   }
 };
@@ -110,9 +110,9 @@ export const deleteCategory = async (id: string): Promise<void> => {
       .eq('id', id);
     if (error) throw error;
   } else {
-    const categories = getLocalData<Category[]>('opaio_categories', defaultCategories);
+    const categories = getLocalData<Category[]>('tc_categories', defaultCategories);
     const updated = categories.filter(c => c.id !== id);
-    saveLocalData('opaio_categories', updated);
+    saveLocalData('tc_categories', updated);
   }
 };
 
@@ -135,7 +135,7 @@ export const getDishes = async (): Promise<Dish[]> => {
         .order('nome');
       if (error) {
         console.warn('Dishes query error, falling back to initial dishes:', error.message);
-        return getLocalData<Dish[]>('opaio_dishes', initialDishes);
+        return getLocalData<Dish[]>('tc_dishes', initialDishes);
       }
       
       // Format response to fit frontend Dish schema
@@ -158,10 +158,10 @@ export const getDishes = async (): Promise<Dish[]> => {
       });
     } catch (e: any) {
       console.warn('Failed to fetch dishes from Supabase, falling back to initial dishes:', e?.message || e);
-      return getLocalData<Dish[]>('opaio_dishes', initialDishes);
+      return getLocalData<Dish[]>('tc_dishes', initialDishes);
     }
   } else {
-    return getLocalData<Dish[]>('opaio_dishes', initialDishes);
+    return getLocalData<Dish[]>('tc_dishes', initialDishes);
   }
 };
 
@@ -183,9 +183,9 @@ export const createDish = async (dish: Dish): Promise<Dish> => {
     if (error) throw error;
     return dish;
   } else {
-    const dishes = getLocalData<Dish[]>('opaio_dishes', initialDishes);
+    const dishes = getLocalData<Dish[]>('tc_dishes', initialDishes);
     const updated = [...dishes, dish];
-    saveLocalData('opaio_dishes', updated);
+    saveLocalData('tc_dishes', updated);
     return dish;
   }
 };
@@ -206,9 +206,9 @@ export const updateDish = async (dish: Dish): Promise<Dish> => {
     if (error) throw error;
     return dish;
   } else {
-    const dishes = getLocalData<Dish[]>('opaio_dishes', initialDishes);
+    const dishes = getLocalData<Dish[]>('tc_dishes', initialDishes);
     const updated = dishes.map(d => d.id === dish.id ? dish : d);
-    saveLocalData('opaio_dishes', updated);
+    saveLocalData('tc_dishes', updated);
     return dish;
   }
 };
@@ -221,9 +221,9 @@ export const deleteDish = async (id: string): Promise<void> => {
       .eq('id', id);
     if (error) throw error;
   } else {
-    const dishes = getLocalData<Dish[]>('opaio_dishes', initialDishes);
+    const dishes = getLocalData<Dish[]>('tc_dishes', initialDishes);
     const updated = dishes.filter(d => d.id !== id);
-    saveLocalData('opaio_dishes', updated);
+    saveLocalData('tc_dishes', updated);
   }
 };
 
@@ -248,7 +248,7 @@ export const getReservations = async (): Promise<Reservation[]> => {
         .order('criado_em', { ascending: false });
       if (error) {
         console.warn('Reservations query error, falling back to local reservations:', error.message);
-        return getLocalData<Reservation[]>('opaio_reservations', []);
+        return getLocalData<Reservation[]>('tc_reservations', []);
       }
       const formatted = (data || []).map((r: any) => ({
         id: r.id,
@@ -270,10 +270,10 @@ export const getReservations = async (): Promise<Reservation[]> => {
       });
     } catch (e: any) {
       console.warn('Failed to fetch reservations from Supabase, falling back to local reservations:', e?.message || e);
-      return getLocalData<Reservation[]>('opaio_reservations', []);
+      return getLocalData<Reservation[]>('tc_reservations', []);
     }
   } else {
-    return getLocalData<Reservation[]>('opaio_reservations', []);
+    return getLocalData<Reservation[]>('tc_reservations', []);
   }
 };
 
@@ -297,10 +297,10 @@ export const createReservation = async (res: Omit<Reservation, 'id'>): Promise<R
     if (error) throw error;
     return { ...res, id: data.id };
   } else {
-    const list = getLocalData<Reservation[]>('opaio_reservations', []);
+    const list = getLocalData<Reservation[]>('tc_reservations', []);
     const fullRes: Reservation = { ...res, id: newId };
     list.push(fullRes);
-    saveLocalData('opaio_reservations', list);
+    saveLocalData('tc_reservations', list);
     return fullRes;
   }
 };
@@ -313,9 +313,9 @@ export const updateReservationStatus = async (id: string, status: 'pending' | 'c
       .eq('id', id);
     if (error) throw error;
   } else {
-    const list = getLocalData<Reservation[]>('opaio_reservations', []);
+    const list = getLocalData<Reservation[]>('tc_reservations', []);
     const updated = list.map(r => r.id === id ? { ...r, status } : r);
-    saveLocalData('opaio_reservations', updated);
+    saveLocalData('tc_reservations', updated);
   }
 };
 
@@ -327,9 +327,9 @@ export const deleteReservation = async (id: string): Promise<void> => {
       .eq('id', id);
     if (error) throw error;
   } else {
-    const list = getLocalData<Reservation[]>('opaio_reservations', []);
+    const list = getLocalData<Reservation[]>('tc_reservations', []);
     const updated = list.filter(r => r.id !== id);
-    saveLocalData('opaio_reservations', updated);
+    saveLocalData('tc_reservations', updated);
   }
 };
 
@@ -350,7 +350,7 @@ export const getReviews = async (): Promise<Review[]> => {
         .order('criado_em', { ascending: false });
       if (error) {
         console.warn('Reviews query error, falling back to default reviews:', error.message);
-        return getLocalData<Review[]>('opaio_reviews', defaultReviews);
+        return getLocalData<Review[]>('tc_reviews', defaultReviews);
       }
       const formatted = (data || []).map((r: any) => ({
         id: r.id,
@@ -369,10 +369,10 @@ export const getReviews = async (): Promise<Review[]> => {
       });
     } catch (e: any) {
       console.warn('Failed to fetch reviews from Supabase, falling back to default reviews:', e?.message || e);
-      return getLocalData<Review[]>('opaio_reviews', defaultReviews);
+      return getLocalData<Review[]>('tc_reviews', defaultReviews);
     }
   } else {
-    return getLocalData<Review[]>('opaio_reviews', defaultReviews);
+    return getLocalData<Review[]>('tc_reviews', defaultReviews);
   }
 };
 
@@ -398,7 +398,7 @@ export const createReview = async (review: Omit<Review, 'id' | 'date'>): Promise
       location: review.location || 'São Paulo, SP'
     };
   } else {
-    const list = getLocalData<Review[]>('opaio_reviews', defaultReviews);
+    const list = getLocalData<Review[]>('tc_reviews', defaultReviews);
     const newReview: Review = {
       ...review,
       id: `rev_user_${Date.now()}`,
@@ -406,7 +406,7 @@ export const createReview = async (review: Omit<Review, 'id' | 'date'>): Promise
       location: review.location || 'São Paulo, SP'
     };
     const updated = [newReview, ...list];
-    saveLocalData('opaio_reviews', updated);
+    saveLocalData('tc_reviews', updated);
     return newReview;
   }
 };
@@ -419,9 +419,9 @@ export const deleteReview = async (id: string): Promise<void> => {
       .eq('id', id);
     if (error) throw error;
   } else {
-    const list = getLocalData<Review[]>('opaio_reviews', defaultReviews);
+    const list = getLocalData<Review[]>('tc_reviews', defaultReviews);
     const updated = list.filter(r => r.id !== id);
-    saveLocalData('opaio_reviews', updated);
+    saveLocalData('tc_reviews', updated);
   }
 };
 

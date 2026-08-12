@@ -195,33 +195,33 @@ export const defaultReviews: Review[] = [
 
 export const galleryImages = [
   {
-    src: '/src/assets/images/ambient_dining_tables_1782402176171.jpg',
+    src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800',
     title: 'Nosso Salão Principal',
     category: 'ambiente'
   },
   {
-    src: '/src/assets/images/ambient_pergola_patio_1782402145177.jpg',
-    title: 'Varanda Externa com Pergolado',
+    src: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&q=80&w=800',
+    title: 'Varanda Externa',
     category: 'ambiente'
   },
   {
-    src: '/src/assets/images/ambient_turf_garden_1782402161783.jpg',
-    title: 'Jardim Externo',
+    src: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&q=80&w=800',
+    title: 'Ambiente Aconchegante',
     category: 'ambiente'
   },
   {
-    src: '/src/assets/images/ambient_cozy_indoor_1782402128797.jpg',
-    title: 'Cantinho Aconchegante',
+    src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800',
+    title: 'Mesa Posta para o Rodízio',
     category: 'ambiente'
   },
   {
-    src: '/src/assets/images/ambient_umbrella_lane_1782402190662.jpg',
-    title: 'Alameda das Mesas Externas',
+    src: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=800',
+    title: 'Área Externa',
     category: 'ambiente'
   },
   {
-    src: '/src/assets/images/opaio_restaurante_interior_1782400764040.jpg',
-    title: 'Interior do Restaurante',
+    src: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800',
+    title: 'Interior da Casa',
     category: 'ambiente'
   },
   {
